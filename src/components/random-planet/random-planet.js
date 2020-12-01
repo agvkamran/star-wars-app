@@ -7,11 +7,7 @@ export default class RandomPlanet extends React.Component {
   swapi = new SwapiService();
 
   state = {
-    name: null,
-    id: null,
-    population: null,
-    rotationPeriod: null,
-    diameter: null
+    planet: {}
   }
   
   constructor(){
@@ -19,22 +15,18 @@ export default class RandomPlanet extends React.Component {
     this.updatePlanet();
   }
 
+  onPlanetLoaded = (planet) => {
+    this.setState({planet});
+  }
+  
   updatePlanet() {
     const id = Math.floor(Math.random()*25) + 2 ;
     this.swapi.getPlanet(id)
-      .then((planet) => {
-        this.setState({
-          name: planet.name,
-          id,
-          population: planet.population,
-          rotationPeriod: planet.rotation_period,
-          diameter: planet.diameter
-        })
-      })
+      .then(this.onPlanetLoaded)
   }
 
   render() {
-    const { name, id, population, rotationPeriod, diameter } = this.state;
+    const { planet: {name, id, population, rotationPeriod, diameter }} = this.state;
     return (
       <div>
         <img src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} />

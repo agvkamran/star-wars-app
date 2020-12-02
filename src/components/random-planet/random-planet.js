@@ -13,9 +13,9 @@ export default class RandomPlanet extends React.Component {
     error: false
   }
 
-  constructor() {
-    super();
+  componentDidMount(){
     this.updatePlanet();
+    // this.interval = setInterval(this.updatePlanet, 10000);
   }
 
   onError = (err) => {
@@ -32,8 +32,9 @@ export default class RandomPlanet extends React.Component {
     });
   }
 
-  updatePlanet() {
-    const id = 14;
+  updatePlanet = () => {
+    console.log('update');
+    const id = Math.floor(Math.random()*25) + 3;
     this.swapi.getPlanet(id)
       .then(this.onPlanetLoaded)
       .catch(this.onError)
@@ -43,9 +44,10 @@ export default class RandomPlanet extends React.Component {
     const { planet, loading, error } = this.state;
     
     const hasData = !(loading || error);
+
+    const errorMessage = error ? <ErrorIndicator /> : null;
     const spinner = loading ? <Spinner /> : null;
     const content = hasData ? <PlanetView planet={planet} /> : null;
-    const errorMessage = error ? <ErrorIndicator /> : null;
 
     return (
       <div>

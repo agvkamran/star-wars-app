@@ -1,44 +1,51 @@
 import React from 'react';
 import SwapiService from '../../services/swapi-service';
+import Spinner from '../spinner/spinner';
 
 export default class PersonDetails extends React.Component {
 
     swapi = new SwapiService();
 
     state = {
-        person: null
+        person: null,
+        loading: true
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.updatePerson();
     }
 
-    componentDidUpdate(prevProps){
-        if(this.props.personId !== prevProps.personId){
+    componentDidUpdate(prevProps) {
+        if (this.props.personId !== prevProps.personId) {
             this.updatePerson();
         }
     }
-    
+
     updatePerson = () => {
+        this.setState({ loading: true })
         const { personId } = this.props;
-        if(!personId){
+        if (!personId) {
             return;
         }
 
         this.swapi
-        .getPerson(personId)
-        .then((person) => {
-            this.setState({ person })
-        })
+            .getPerson(personId)
+            .then((person) => {
+                this.setState({ person: person, loading: false })
+            })
     }
 
     render() {
-
-        if(!this.state.person){
+        if (!this.state.person) {
             return <span>Select a person from a list</span>
+        }
+        
+        if (this.state.loading) {
+            return <Spinner />
         }
 
         const { id, name, gender, birthYear, eyeColor } = this.state.person;
+        
         return (
             <div>
                 <img src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} alt='chacacter' />
@@ -63,4 +70,3 @@ export default class PersonDetails extends React.Component {
         )
     }
 }
-

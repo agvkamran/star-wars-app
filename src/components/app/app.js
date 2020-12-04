@@ -6,8 +6,9 @@ import ErrorIndicator from '../error-indicator/error-indicator';
 import PeoplePage from '../people-page/people-page';
 import SwapiService from '../../services/swapi-service';
 import ItemList from '../item-list/item-list';
-import PersonDetails from '../person-details/person-details';
-
+import ItemDetails from '../item-details/item-details';
+import Row from '../row/row';
+import ErrorBoundry from '../error-boundry/error-boundry';
 export default class App extends React.Component {
 
     swapi = new SwapiService();
@@ -23,36 +24,115 @@ export default class App extends React.Component {
 
     render() {
 
+        const { getPerson, getStarship, getPersonImage, getStarshipImage } = this.swapi;
+
         if (this.state.hasError) {
             return <ErrorIndicator />
         }
 
+        const personDetails = (
+            <ItemDetails 
+                itemId={11}
+                getData={getPerson}
+                getImageUrl={getPersonImage} />
+        )
+
+        const starshipDetails = (
+            <ItemDetails
+                itemId={5}
+                getData={getStarship}
+                getImageUrl={getStarshipImage} />
+        )
         return (
-            <div>
-                <Header />
-                <RandomPlanet />
-                <ErrorButton />
-                <PeoplePage getAllPeople={this.swapi.getAllPeople} />
-                
-                {/* <div>
-                    <ItemList 
-                        onItemSelected={this.onPersonSelected}
-                        getData={this.swapi.getAllPlanets} 
-                        renderItem={(item) => <span>{item.name}<button>!</button></span>}
-                        />
-                    <PersonDetails personId={this.state.selectedPerson} />
-                    <ErrorButton />
-                </div>
-                
+            <ErrorBoundry>
                 <div>
-                    <ItemList onItemSelected={this.onPersonSelected}
-                        getData={this.swapi.getAllStarships}
-                        renderItem={(item) => item.name} />
-                    <PersonDetails personId={this.state.selectedPerson} />
-                    <ErrorButton />
-                </div> */}
-            </div>
+                    <Header />
+                    <Row left={personDetails} right={starshipDetails} />
+                </div>
+            </ErrorBoundry>
         )
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// return (
+//     <div>
+//         <Header />
+//         <Row />
+{/* <RandomPlanet />
+        <ErrorButton />
+        <PeoplePage getAllPeople={this.swapi.getAllPeople} /> */}
+
+{/* <div>
+            <ItemList 
+                onItemSelected={this.onPersonSelected}
+                getData={this.swapi.getAllPlanets} 
+                renderItem={(item) => <span>{item.name}<button>!</button></span>}
+                />
+            <PersonDetails personId={this.state.selectedPerson} />
+            <ErrorButton />
+        </div>
+        
+        <div>
+            <ItemList onItemSelected={this.onPersonSelected}
+                getData={this.swapi.getAllStarships}
+                renderItem={(item) => item.name} />
+            <PersonDetails personId={this.state.selectedPerson} />
+            <ErrorButton />
+        </div> */}
+//     </div>
+// )
+// }

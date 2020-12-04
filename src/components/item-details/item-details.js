@@ -2,13 +2,14 @@ import React from 'react';
 import SwapiService from '../../services/swapi-service';
 import Spinner from '../spinner/spinner';
 
-export default class PersonDetails extends React.Component {
+export default class ItemDetails extends React.Component {
 
     swapi = new SwapiService();
 
     state = {
-        person: null,
-        loading: true
+        item: null,
+        loading: true,
+        image: null
     }
 
     componentDidMount() {
@@ -16,27 +17,26 @@ export default class PersonDetails extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.personId !== prevProps.personId) {
+        if (this.props.itemId !== prevProps.itemId) {
             this.updatePerson();
         }
     }
 
     updatePerson = () => {
         this.setState({ loading: true })
-        const { personId } = this.props;
-        if (!personId) {
+        const { itemId: itemId, getData: getData, getImageUrl: getImageUrl } = this.props;
+        if (!itemId) {
             return;
         }
 
-        this.swapi
-            .getPerson(personId)
-            .then((person) => {
-                this.setState({ person: person, loading: false })
+        getData(itemId)
+            .then((item) => {
+                this.setState({ item: item, loading: false, image: getImageUrl(item) })
             })
     }
 
     render() {
-        if (!this.state.person) {
+        if (!this.state.item) {
             return <span>Select a person from a list</span>
         }
 
@@ -44,13 +44,14 @@ export default class PersonDetails extends React.Component {
             return <Spinner />
         }
 
-        const { id, name, gender, birthYear, eyeColor } = this.state.person;
-
+        const { id, name, gender, birthYear, eyeColor } = this.state.item;
+        const { image } = this.state;
+        
         return (
             <div>
-                <img src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} alt='chacacter' />
+                <img src={image} alt='chacacter' />
                 <div>
-                    <h4>{name} {this.props.personId}</h4>
+                    <h4>{name} {this.props.itemId}</h4>
                     <ul>
                         <li>
                             <span>Gender: </span>

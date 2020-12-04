@@ -36,8 +36,11 @@ export default class App extends React.Component {
                 
                 <div>
                     <p>People Page</p>
-                    <ItemList onItemSelected={this.onPersonSelected}
-                        getData={this.swapi.getAllPlanets} />
+                    <ItemList 
+                        onItemSelected={this.onPersonSelected}
+                        getData={this.swapi.getAllPlanets} 
+                        renderItem={(item) => <span>{item.name}<button>!</button></span>}
+                        />
                     <PersonDetails personId={this.state.selectedPerson} />
                     <ErrorButton />
                 </div>
@@ -45,7 +48,8 @@ export default class App extends React.Component {
                 <div>
                     <p>People Page</p>
                     <ItemList onItemSelected={this.onPersonSelected}
-                        getData={this.swapi.getAllStarships} />
+                        getData={this.swapi.getAllStarships}
+                        renderItem={(item) => item.name} />
                     <PersonDetails personId={this.state.selectedPerson} />
                     <ErrorButton />
                 </div>

@@ -3,6 +3,7 @@ import ErrorIndicator from '../error-indicator/error-indicator';
 import ItemList from '../item-list/item-list';
 import PersonDetails from '../person-details/person-details';
 import ErrorButton from '../error-button/error-button';
+import SwapiService from '../../services/swapi-service';
 
 export default class PeoplePage extends React.Component {
 
@@ -24,15 +25,15 @@ export default class PeoplePage extends React.Component {
     }
 
     render() {
-
-        if(this.state.hasError){
+        if (this.state.hasError) {
             return <ErrorIndicator />
         }
 
         return (
             <div>
                 <p>People Page</p>
-                <ItemList onItemSelected={this.onPersonSelected} />
+                <ItemList onItemSelected={this.onPersonSelected}
+                    getData={this.props.getAllPeople} />
                 <PersonDetails personId={this.state.selectedPerson} />
                 <ErrorButton />
             </div>

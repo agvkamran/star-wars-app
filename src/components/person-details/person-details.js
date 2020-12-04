@@ -39,13 +39,13 @@ export default class PersonDetails extends React.Component {
         if (!this.state.person) {
             return <span>Select a person from a list</span>
         }
-        
+
         if (this.state.loading) {
             return <Spinner />
         }
 
         const { id, name, gender, birthYear, eyeColor } = this.state.person;
-        
+
         return (
             <div>
                 <img src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} alt='chacacter' />

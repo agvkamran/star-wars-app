@@ -16,7 +16,7 @@ export { Record };
 
 export default class ItemDetails extends React.Component {
 
-    swapi = new SwapiService();
+    // swapi = new SwapiService();
 
     state = {
         item: null,
@@ -56,7 +56,7 @@ export default class ItemDetails extends React.Component {
             return <Spinner />
         }
 
-        const { id, name, gender, birthYear, eyeColor } = this.state.item;
+        const { name } = this.state.item;
         const { image } = this.state;
 
         const item = this.state.item;

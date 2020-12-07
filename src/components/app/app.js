@@ -5,6 +5,9 @@ import SwapiService from '../../services/swapi-service';
 import ItemDetails, { Record } from '../item-details/item-details';
 import Row from '../row/row';
 import ErrorBoundry from '../error-boundry/error-boundry';
+import ItemList from '../item-list/item-list';
+import { PersonList, PlanetList, StarshipList } from '../sw-components/item-lists';
+import { PersonDetails, PlanetDetails, StarshipDetails } from '../sw-components/details';
 
 export default class App extends React.Component {
 
@@ -51,7 +54,30 @@ export default class App extends React.Component {
             <ErrorBoundry>
                 <div>
                     <Header />
-                    <Row left={personDetails} right={starshipDetails} />
+                    {/* <Row left={personDetails} right={starshipDetails} /> */}
+                    {/* <ItemList getData={getAllPeople}>
+                        {({ name }) => <span>{name}</span>}
+                    </ItemList>
+                    <ItemList getData={getAllPlanets}>
+                        {({ name }) => <span>{name}</span>}
+                    </ItemList> */}
+                    <PersonDetails itemId={1} />
+
+                    <PlanetDetails itemId={9} />
+
+                    <StarshipDetails itemId={3} />
+                    
+                    <PersonList>
+                        { ({name}) =><span>{name}</span>}
+                    </PersonList>
+
+                    <PlanetList>
+                        { ({name}) =><span>{name}</span>}
+                    </PlanetList>
+                    
+                    <StarshipList>
+                        { ({name}) =><span>{name}</span>}
+                    </StarshipList>
                 </div>
             </ErrorBoundry>
         )

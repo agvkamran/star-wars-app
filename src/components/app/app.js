@@ -1,14 +1,11 @@
 import React from 'react';
 import Header from '../app-header/app-header';
-import RandomPlanet from '../random-planet/random-planet';
-import ErrorButton from '../error-button/error-button';
 import ErrorIndicator from '../error-indicator/error-indicator';
-import PeoplePage from '../people-page/people-page';
 import SwapiService from '../../services/swapi-service';
-import ItemList from '../item-list/item-list';
-import ItemDetails from '../item-details/item-details';
+import ItemDetails, { Record } from '../item-details/item-details';
 import Row from '../row/row';
 import ErrorBoundry from '../error-boundry/error-boundry';
+
 export default class App extends React.Component {
 
     swapi = new SwapiService();
@@ -31,17 +28,24 @@ export default class App extends React.Component {
         }
 
         const personDetails = (
-            <ItemDetails 
+            <ItemDetails
                 itemId={11}
                 getData={getPerson}
-                getImageUrl={getPersonImage} />
+                getImageUrl={getPersonImage}>
+                <Record field='gender' label='Gender: ' />
+                <Record field='eyeColor' label='Eye Color: ' />
+            </ItemDetails>
         )
 
         const starshipDetails = (
             <ItemDetails
                 itemId={5}
                 getData={getStarship}
-                getImageUrl={getStarshipImage} />
+                getImageUrl={getStarshipImage}>
+                <Record field='model' label='Model: ' />
+                <Record field='length' label='Length: ' />
+                <Record field='passengers' label='Passengers: ' />
+            </ItemDetails>
         )
         return (
             <ErrorBoundry>

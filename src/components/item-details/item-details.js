@@ -2,6 +2,18 @@ import React from 'react';
 import SwapiService from '../../services/swapi-service';
 import Spinner from '../spinner/spinner';
 
+
+const Record = ({ item, field, label }) => {
+    return (
+        <li>
+            <span>{label}</span>
+            <span>{item[field]}</span>
+        </li>
+    )
+}
+
+export { Record };
+
 export default class ItemDetails extends React.Component {
 
     swapi = new SwapiService();
@@ -46,14 +58,16 @@ export default class ItemDetails extends React.Component {
 
         const { id, name, gender, birthYear, eyeColor } = this.state.item;
         const { image } = this.state;
-        
+
+        const item = this.state.item;
+
         return (
             <div>
                 <img src={image} alt='chacacter' />
                 <div>
                     <h4>{name} {this.props.itemId}</h4>
                     <ul>
-                        <li>
+                        {/* <li>
                             <span>Gender: </span>
                             <span>{gender}</span>
                         </li>
@@ -64,7 +78,12 @@ export default class ItemDetails extends React.Component {
                         <li>
                             <span>Eye color: </span>
                             <span>{eyeColor}</span>
-                        </li>
+                        </li> */}
+                        {
+                            React.Children.map(this.props.children, (child) => {
+                                return React.cloneElement(child, {item});
+                            })
+                        }
                     </ul>
                 </div>
             </div>

@@ -7,7 +7,7 @@ const Row = ({ left, right }) => {
             <p>People Page</p>
             {left}
             {right}
-            <span>row</span>
+            <span>ROW COMPONENT</span>
             <ErrorButton />
         </div>
     )

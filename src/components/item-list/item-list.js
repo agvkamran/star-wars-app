@@ -1,7 +1,6 @@
 import React from 'react';
 
 const ItemList = (props) => {
-
     const { data, onItemSelected, children: renderLabel } = props;
 
     const items = data.map((item) => {
